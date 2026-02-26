@@ -21,8 +21,28 @@
                 "group": "Features",
                 "pages": [
                   {
+                    "title": "Quickstart",
+                    "path": "quickstart"
+                  },
+                  {
+                    "title": "Introduction",
+                    "path": "introduction"
+                  },
+                  {
+                    "title": "Concepts",
+                    "path": "concepts"
+                  },
+                  {
+                    "title": "Components",
+                    "path": "components"
+                  },
+                  {
                     "title": "Login",
                     "path": "login"
+                  },
+                  {
+                    "title": "Notice",
+                    "path": "notice"
                   }
                 ]
               }
