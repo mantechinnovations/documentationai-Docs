@@ -16,7 +16,17 @@
           {
             "tab": "Documentation",
             "icon": "book",
-            "pages": []
+            "pages": [
+              {
+                "group": "Features",
+                "pages": [
+                  {
+                    "title": "Login",
+                    "path": "login"
+                  }
+                ]
+              }
+            ]
           },
           {
             "tab": "API Reference",
