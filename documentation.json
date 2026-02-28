@@ -67,10 +67,10 @@
                 ]
               },
               {
-                "group": "Sample Endpoints",
+                "group": "Endpoints",
                 "pages": [
                   {
-                    "group": "Qwicbook Twidget EndPoint",
+                    "group": "Twidget EndPoints",
                     "pages": [],
                     "openapi": "api-reference/qwicbooktwidget.yaml"
                   }
