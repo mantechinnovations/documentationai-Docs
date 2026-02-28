@@ -65,7 +65,14 @@
               },
               {
                 "group": "Sample Endpoints",
-                "openapi": "openapi.yaml"
+                "openapi": "openapi.yaml",
+                "pages": [
+                  {
+                    "group": "Qwicbook Twidget EndPoint",
+                    "pages": [],
+                    "openapi": "api-reference/qwicbooktwidget.yaml"
+                  }
+                ]
               }
             ]
           },
