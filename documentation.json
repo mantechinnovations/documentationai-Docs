@@ -37,7 +37,7 @@
                     "path": "components"
                   },
                   {
-                    "title": "Login",
+                    "title": "GetUserInformation",
                     "path": "login",
                     "openapi": "api-reference/qwicbooktwidget.yaml GET /getuserinformation",
                     "openapi-mode": "auto",

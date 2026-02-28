@@ -1,89 +1,18 @@
 ---
 title: Log in to the Provider App
-description: Learn how to access the Qwicbook Provider App, meet activation prerequisites, and troubleshoot common login issues.
+description: >-
+  Learn how to access the Qwicbook Provider App, meet activation prerequisites,
+  and troubleshoot common login issues.
 ---
+<ParamField path="AdminUserMasterID" param-type="string" required="false" deprecated="false">
+  This is the Id of a Provider (Doctor) that should be passed. for validation purposes use the value as "1"
+</ParamField>
 
 ## Overview
 
-Log in to the Qwicbook Provider App to manage your appointments alongside the web interface on your PC or laptop. After you sign in, you can keep your schedule up to date from your Android device while staying in sync with your online account.
+GetUserInformation will provide details about a user of type "Provider". This API is used within the Android Provider App to retrieve details about the logged in "Provider" (docotor). &#x20;
 
-<Callout kind="info">
-
-Use the password you have received in your email. You cannot change your password from the app.
-
+<Callout kind="info" collapsed="false">
+  The AdminUserMasterID parameter value is "1" for validation purposes.ff
 </Callout>
 
-## Prerequisites and getting access
-
-Provider login access may require activation before you can sign in.
-
-<Callout kind="tip">
-
-If you are not yet activated, chat with the Qwicbook team to activate the provider app. Contact sales at `sales@myvrin.com` or call `+91 7391891540`.
-
-</Callout>
-
-To install the Qwicbook Provider App on your Android device:
-
-- Open the Google Play Store on your device.
-- Search for `Qwicbook` or use this direct link: https://play.google.com/store/apps/details?id=com.eighty20.appointment1&hl=en_IN
-- Install the app and wait for it to finish downloading.
-
-Once the app is installed and your provider account is activated, confirm that:
-
-- You know which email address is registered for your provider account.
-- You have received the login password by email from Qwicbook.
-
-## How to log in
-
-Use these steps to sign in to the Qwicbook Provider App.
-
-<Steps>
-
-  <Step title="Open the Provider App" icon="play-circle">
-
-  - Tap the Qwicbook Provider App icon on your Android device.
-  - Wait for the login screen to load fully.
-
-  </Step>
-
-  <Step title="Enter your registered email" icon="edit">
-
-  - In the email field, enter the email address registered with your provider account.
-  - Check for typos and make sure you use the same address where you received the password email.
-
-  </Step>
-
-  <Step title="Enter the emailed password" icon="lock">
-
-  - In the password field, enter the password you received in your email from Qwicbook.
-  - Respect uppercase and lowercase letters when typing the password.
-
-  </Step>
-
-  <Step title="Tap the login button" icon="arrow-right">
-
-  - Tap the login or sign in button on the screen.
-  - If the details are correct and your provider app is activated, the app loads your appointment dashboard.
-
-  </Step>
-
-</Steps>
-
-When login succeeds, you see your provider home screen with your upcoming appointments and can start managing bookings from the app.
-
-## Troubleshooting
-
-If you cannot log in, use these common checks.
-
-- **Did not receive the password email**  
-  Check your spam or promotions folder for an email from Qwicbook. If you still cannot find it, contact sales at `sales@myvrin.com` or call `+91 7391891540` and request that your provider login details be resent.
-
-- **Password does not work**  
-  Confirm that you are using the latest password email you received and that Caps Lock is not on. Remember that you cannot change your password from the app; contact the Qwicbook team if you need a new password.
-
-- **Account not yet activated**  
-  If login fails even with the correct email and password, your provider app access may not be activated. Chat with the Qwicbook team or reach out at `sales@myvrin.com` or `+91 7391891540` to activate your provider account.
-
-- **App not installed or outdated**  
-  Reinstall or update the Qwicbook Provider App from the Google Play Store using the link https://play.google.com/store/apps/details?id=com.eighty20.appointment1&hl=en_IN, then try logging in again.
