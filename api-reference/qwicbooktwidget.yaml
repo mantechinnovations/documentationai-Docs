@@ -13,7 +13,8 @@ components:
 paths:
   /checkusertype:
     get:
-      summary: checkusertype
+      summary: UserType attribute will contain if its a Provider or a User.
+      description: The JSON retuens many attributes. The most important attribute is the UserType
       security:
         - noauthAuth: []
       parameters:
