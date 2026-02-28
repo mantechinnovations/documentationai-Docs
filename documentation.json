@@ -23,29 +23,6 @@
                   {
                     "title": "Quickstart",
                     "path": "quickstart"
-                  },
-                  {
-                    "title": "Introduction",
-                    "path": "introduction"
-                  },
-                  {
-                    "title": "Concepts",
-                    "path": "concepts"
-                  },
-                  {
-                    "title": "Components",
-                    "path": "components"
-                  },
-                  {
-                    "title": "GetUserInformation",
-                    "path": "login",
-                    "openapi": "api-reference/qwicbooktwidget.yaml GET /getuserinformation",
-                    "openapi-mode": "auto",
-                    "method": "GET"
-                  },
-                  {
-                    "title": "Notice",
-                    "path": "notice"
                   }
                 ]
               }
