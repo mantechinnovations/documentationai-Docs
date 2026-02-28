@@ -38,7 +38,10 @@
                   },
                   {
                     "title": "Login",
-                    "path": "login"
+                    "path": "login",
+                    "openapi": "api-reference/qwicbooktwidget.yaml GET /getuserinformation",
+                    "openapi-mode": "auto",
+                    "method": "GET"
                   },
                   {
                     "title": "Notice",
@@ -65,7 +68,6 @@
               },
               {
                 "group": "Sample Endpoints",
-                "openapi": "openapi.yaml",
                 "pages": [
                   {
                     "group": "Qwicbook Twidget EndPoint",
