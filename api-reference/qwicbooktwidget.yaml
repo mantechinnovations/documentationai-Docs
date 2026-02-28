@@ -1,0 +1,1377 @@
+openapi: 3.0.0
+info:
+  title: QwicbookTwidget
+  version: 1.0.0
+servers:
+  - url: https://d300b.twidget.io
+  - url: http://ws.eighty20technologies.com
+components:
+  securitySchemes:
+    noauthAuth:
+      type: http
+      scheme: noauth
+paths:
+  /checkusertype:
+    get:
+      tags:
+        - default
+      summary: checkusertype
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Email
+          in: query
+          schema:
+            type: string
+          example: drdeepakhbk@gmail.com
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 28 Feb 2026 07:12:41 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '96'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            ETag:
+              schema:
+                type: string
+                example: W/"60-BlQaC41vL8dlWsZy/0WbPqZ1Mq4"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                [
+                    {
+                        "AdminUserMasterID": 1,
+                        "City": "Mumbai",
+                        "CityID": 9,
+                        "Mobile": "8380021488",
+                        "UserType": "Provider"
+                    }
+                ]
+  /authenticate:
+    get:
+      tags:
+        - default
+      summary: authenticate
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Email
+          in: query
+          schema:
+            type: string
+          example: drdeepakhbk@gmail.com
+        - name: Password
+          in: query
+          schema:
+            type: string
+          example: development
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 28 Feb 2026 07:13:09 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: text/html; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '4'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            ETag:
+              schema:
+                type: string
+                example: W/"4-X/5TO4MPCKAyY0ipFgr6/IraRNs"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: 'true'
+  /getuser:
+    get:
+      tags:
+        - default
+      summary: getuser
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: AdminUserMasterId
+          in: query
+          schema:
+            type: integer
+          example: '1'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 28 Feb 2026 07:13:32 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '471'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            ETag:
+              schema:
+                type: string
+                example: W/"1d7-GNDYMopx8kBjnBlOGiPKqS9zXL0"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                [
+                    {
+                        "APServiceID": 0,
+                        "Active": "1",
+                        "Address1": "75 Hatkesh Society",
+                        "Address2": "Juhu Scheme",
+                        "AdminUserMasterID": 1,
+                        "AreaID": 10,
+                        "City": "Mumbai",
+                        "CityID": 9,
+                        "CountryID": 1,
+                        "DeviceID": null,
+                        "DisplayName": null,
+                        "Email": "drdeepakhbk@gmail.com",
+                        "FirstName": "Dr. Deepak",
+                        "IsUserAvailable": false,
+                        "LastName": "Kansara",
+                        "Mobile": "8380021488",
+                        "Password": "development",
+                        "ShopCount": 0,
+                        "ShopNames": null,
+                        "State": "MH",
+                        "StateID": 2,
+                        "UserCategory": null,
+                        "UserQualification": null,
+                        "UserType": "Provider"
+                    }
+                ]
+  /getuserinformation:
+    get:
+      tags:
+        - default
+      summary: getuserinformation
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: AdminUserMasterId
+          in: query
+          schema:
+            type: integer
+          example: '1'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 28 Feb 2026 07:13:52 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '173'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            ETag:
+              schema:
+                type: string
+                example: W/"ad-shnkx+g7qfgGyQybVAUSEragLqk"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                [
+                    {
+                        "CustomerNumber": "108155",
+                        "ExpiryDate": "31-Dec-2030",
+                        "RegisteredEmailID": "drdeepakhbk@gmail.com",
+                        "RegisteredMobile": "8380021488",
+                        "Remarks": "",
+                        "SupportMobileNumber1": null
+                    }
+                ]
+  /providerdetails:
+    get:
+      tags:
+        - default
+      summary: providerdetails
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: AdminUserMasterId
+          in: query
+          schema:
+            type: integer
+          example: '1'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 28 Feb 2026 07:14:15 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '307'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            ETag:
+              schema:
+                type: string
+                example: W/"133-duiHDH4sjmydfBsNbZUbS9ZJCkk"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                [
+                    {
+                        "APServiceID": 1,
+                        "AssociationType": null,
+                        "ServiceName": "Lokhandwala Clinic"
+                    },
+                    {
+                        "APServiceID": 2,
+                        "AssociationType": null,
+                        "ServiceName": "Juhu Clinic"
+                    },
+                    {
+                        "APServiceID": 103,
+                        "AssociationType": null,
+                        "ServiceName": "Orchid Hospital (Orthopedic)"
+                    },
+                    {
+                        "APServiceID": 5,
+                        "AssociationType": null,
+                        "ServiceName": "Nijanand Clinic"
+                    }
+                ]
+  /getproviderdetailsbyappointment:
+    get:
+      tags:
+        - default
+      summary: getproviderdetailsbyappointment
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: AppointmentBookingId
+          in: query
+          schema:
+            type: integer
+          example: '7871'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 28 Feb 2026 07:14:40 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '340'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            ETag:
+              schema:
+                type: string
+                example: W/"154-ANLH87PI0f/69Yuxu7+Zdj+2oPc"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                [
+                    {
+                        "Address": "Lokhandwala Complex, Andheri (W) Mumbai - 400053",
+                        "AppointmentBookingID": 7871,
+                        "Category": "Doctor",
+                        "FullName": "Dr. Deepak Kansara",
+                        "Message": "Providers details for your appointment",
+                        "Mobile": "8380021488",
+                        "NewTime": "11:32 (Your new time)",
+                        "OldTime": "11:05",
+                        "Qualification": "General Physician",
+                        "ServiceName": "Lokhandwala Clinic"
+                    }
+                ]
+  /getappointmentbyshop:
+    get:
+      tags:
+        - default
+      summary: getappointmentbyshop
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: APServiceId
+          in: query
+          schema:
+            type: integer
+          example: '1'
+        - name: AppointmentDate
+          in: query
+          schema:
+            type: string
+          example: 9-Feb-2026
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 28 Feb 2026 07:15:25 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '1066'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            ETag:
+              schema:
+                type: string
+                example: W/"42a-0uF0zqfSwyDdDODZtPb2Ecyjx+A"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                [
+                    {
+                        "APServiceTransID": 28891,
+                        "AdminUserMasterID": 6,
+                        "AppointmentBookingID": 7870,
+                        "BookedForDate": "09-Feb-2026",
+                        "BookingDate": "08-Feb-2026",
+                        "DisplayName": "Tushar (Web User)",
+                        "FromTime": "11:00",
+                        "ParentName": "Web User",
+                        "PatientName": "Tushar",
+                        "Remarks": "8380021488 - Bot - Testing",
+                        "SequenceNumber": "0",
+                        "ToTime": "11:05",
+                        "TokenNumber": "1",
+                        "UserIn": 0,
+                        "UserOut": 0
+                    },
+                    {
+                        "APServiceTransID": 28892,
+                        "AdminUserMasterID": 6,
+                        "AppointmentBookingID": 7871,
+                        "BookedForDate": "09-Feb-2026",
+                        "BookingDate": "08-Feb-2026",
+                        "DisplayName": "Ravi (Web User)",
+                        "FromTime": "11:05",
+                        "ParentName": "Web User",
+                        "PatientName": "Ravi",
+                        "Remarks": "8380021488 - Bot - None",
+                        "SequenceNumber": "0",
+                        "ToTime": "11:10",
+                        "TokenNumber": "2",
+                        "UserIn": 0,
+                        "UserOut": 0
+                    },
+                    {
+                        "APServiceTransID": 28893,
+                        "AdminUserMasterID": 6,
+                        "AppointmentBookingID": 7874,
+                        "BookedForDate": "09-Feb-2026",
+                        "BookingDate": "08-Feb-2026",
+                        "DisplayName": "TPTWIDGET (Web User)",
+                        "FromTime": "11:10",
+                        "ParentName": "Web User",
+                        "PatientName": "TPTWIDGET",
+                        "Remarks": "8380021488 - from postman Twidget",
+                        "SequenceNumber": "0",
+                        "ToTime": "11:15",
+                        "TokenNumber": "3",
+                        "UserIn": 1,
+                        "UserOut": 1
+                    }
+                ]
+  /getschedule:
+    get:
+      tags:
+        - default
+      summary: getschedule
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: APServiceId
+          in: query
+          schema:
+            type: integer
+          example: '1'
+        - name: CurrentDate
+          in: query
+          schema:
+            type: string
+          example: 9-Feb-2026
+        - name: TodayDate
+          in: query
+          schema:
+            type: string
+          example: 9-Feb-2026
+        - name: TodayTime
+          in: query
+          schema:
+            type: string
+          example: '14:30'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 28 Feb 2026 07:15:46 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '5167'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            ETag:
+              schema:
+                type: string
+                example: W/"142f-yVXhCuSbqBTSC7XKNA3/tS2SzJM"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                [
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28915,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "17:00 | TKN: 1",
+                        "IsOOOFlag": 0,
+                        "ToTime": "17:05"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28916,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "17:05 | TKN: 2",
+                        "IsOOOFlag": 0,
+                        "ToTime": "17:10"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28917,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "17:10 | TKN: 3",
+                        "IsOOOFlag": 0,
+                        "ToTime": "17:15"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28918,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "17:15 | TKN: 4",
+                        "IsOOOFlag": 0,
+                        "ToTime": "17:20"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28919,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "17:20 | TKN: 5",
+                        "IsOOOFlag": 0,
+                        "ToTime": "17:25"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28920,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "17:25 | TKN: 6",
+                        "IsOOOFlag": 0,
+                        "ToTime": "17:30"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28921,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "17:30 | TKN: 7",
+                        "IsOOOFlag": 0,
+                        "ToTime": "17:35"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28922,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "17:35 | TKN: 8",
+                        "IsOOOFlag": 0,
+                        "ToTime": "17:40"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28923,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "17:40 | TKN: 9",
+                        "IsOOOFlag": 0,
+                        "ToTime": "17:45"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28924,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "17:45 | TKN: 10",
+                        "IsOOOFlag": 0,
+                        "ToTime": "17:50"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28925,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "17:50 | TKN: 11",
+                        "IsOOOFlag": 0,
+                        "ToTime": "17:55"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28926,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "17:55 | TKN: 12",
+                        "IsOOOFlag": 0,
+                        "ToTime": "18:00"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28927,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "18:00 | TKN: 13",
+                        "IsOOOFlag": 0,
+                        "ToTime": "18:05"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28928,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "18:05 | TKN: 14",
+                        "IsOOOFlag": 0,
+                        "ToTime": "18:10"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28929,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "18:10 | TKN: 15",
+                        "IsOOOFlag": 0,
+                        "ToTime": "18:15"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28930,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "18:15 | TKN: 16",
+                        "IsOOOFlag": 0,
+                        "ToTime": "18:20"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28931,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "18:20 | TKN: 17",
+                        "IsOOOFlag": 0,
+                        "ToTime": "18:25"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28932,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "18:25 | TKN: 18",
+                        "IsOOOFlag": 0,
+                        "ToTime": "18:30"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28933,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "18:30 | TKN: 19",
+                        "IsOOOFlag": 0,
+                        "ToTime": "18:35"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28934,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "18:35 | TKN: 20",
+                        "IsOOOFlag": 0,
+                        "ToTime": "18:40"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28935,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "18:40 | TKN: 21",
+                        "IsOOOFlag": 0,
+                        "ToTime": "18:45"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28936,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "18:45 | TKN: 22",
+                        "IsOOOFlag": 0,
+                        "ToTime": "18:50"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28937,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "18:50 | TKN: 23",
+                        "IsOOOFlag": 0,
+                        "ToTime": "18:55"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28938,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "18:55 | TKN: 24",
+                        "IsOOOFlag": 0,
+                        "ToTime": "19:00"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28939,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "20:00 | TKN: 1",
+                        "IsOOOFlag": 0,
+                        "ToTime": "20:05"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28940,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "20:05 | TKN: 2",
+                        "IsOOOFlag": 0,
+                        "ToTime": "20:10"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28941,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "20:10 | TKN: 3",
+                        "IsOOOFlag": 0,
+                        "ToTime": "20:15"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28942,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "20:15 | TKN: 4",
+                        "IsOOOFlag": 0,
+                        "ToTime": "20:20"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28943,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "20:20 | TKN: 5",
+                        "IsOOOFlag": 0,
+                        "ToTime": "20:25"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28944,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "20:25 | TKN: 6",
+                        "IsOOOFlag": 0,
+                        "ToTime": "20:30"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28945,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "20:30 | TKN: 7",
+                        "IsOOOFlag": 0,
+                        "ToTime": "20:35"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28946,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "20:35 | TKN: 8",
+                        "IsOOOFlag": 0,
+                        "ToTime": "20:40"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28947,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "20:40 | TKN: 9",
+                        "IsOOOFlag": 0,
+                        "ToTime": "20:45"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28948,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "20:45 | TKN: 10",
+                        "IsOOOFlag": 0,
+                        "ToTime": "20:50"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28949,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "20:50 | TKN: 11",
+                        "IsOOOFlag": 0,
+                        "ToTime": "20:55"
+                    },
+                    {
+                        "APServiceID": 1,
+                        "APServiceTransID": 28950,
+                        "CurrentDate": null,
+                        "Day": 0,
+                        "DayPart": "E",
+                        "FromTime": "20:55 | TKN: 12",
+                        "IsOOOFlag": 0,
+                        "ToTime": "21:00"
+                    }
+                ]
+  /Appointment/Service1.svc/InsertOOO:
+    post:
+      tags:
+        - default
+      summary: Appointment/InsertOOO
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                adminOOO:
+                  OOOID: '1'
+                  AdminUserMasterID: '1'
+                  IsOOO: '1'
+                  OOOFrom: '2026-02-01T00:00:00'
+                  OOOTo: '2026-02-10T00:00:00'
+                  OOOMessage: I am out of office. TP
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /insertooo:
+    post:
+      tags:
+        - default
+      summary: insertooo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                OOOID: '0'
+                AdminUserMasterID: '1'
+                IsOOO: '0'
+                OOOFrom: '2026-02-01T00:00:00'
+                OOOTo: '2026-02-10T00:00:00'
+                OOOMessage: I am out of office.
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 28 Feb 2026 07:19:59 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: text/html; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '1'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            ETag:
+              schema:
+                type: string
+                example: W/"1-NWoZK3kTsExUV00Ywo1G5jlUKKs"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: '1'
+  /insertappointments:
+    post:
+      tags:
+        - default
+      summary: insertappointments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                AdminUserMasterID: '6'
+                APServiceTransID: '28893'
+                Remarks: from postman Twidget
+                BookedForDate: 3-Mar-2026
+                PatientName: TPTWIDGET
+                AlternateMobile: '8380021488'
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sun, 08 Feb 2026 13:00:09 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '40'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            ETag:
+              schema:
+                type: string
+                example: W/"28-wwypqimysIfk0e5Xsf1VhCxwSIc"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                example-0:
+                  summary: insertappointments
+                  value: |-
+                    [
+                        {
+                            "AppointmentBookingID": 0,
+                            "Token": "0"
+                        }
+                    ]
+                example-1:
+                  summary: insertappointments
+                  value: |-
+                    [
+                        {
+                            "AppointmentBookingID": 7876,
+                            "Token": "3"
+                        }
+                    ]
+  /insertlatedetails:
+    post:
+      tags:
+        - default
+      summary: insertlatedetails
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                LateID: '0'
+                AdminUserMasterID: '1'
+                LateDate: 9-Feb-2026
+                LateTime: '11:27'
+                Message: Sorry running late
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /updateappointmentstatusex:
+    get:
+      tags:
+        - default
+      summary: updateappointmentstatusex
+      parameters:
+        - name: AppointmentBookingIDs
+          in: query
+          schema:
+            type: integer
+          example: '7874'
+        - name: UserInOut
+          in: query
+          schema:
+            type: integer
+          example: '1'
+        - name: InOutStatus
+          in: query
+          schema:
+            type: string
+          example: Out
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 14 Feb 2026 13:13:37 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: text/html; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '1'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            ETag:
+              schema:
+                type: string
+                example: W/"1-NWoZK3kTsExUV00Ywo1G5jlUKKs"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: '1'
+  /deleteappointmentwithcustommessage:
+    get:
+      tags:
+        - default
+      summary: deleteappointmentwithcustommessage
+      parameters:
+        - name: AppointmentBookingID
+          in: query
+          schema:
+            type: integer
+          example: '7868'
+        - name: CustomMessage
+          in: query
+          schema:
+            type: string
+          example: Sorry, I cannot make it
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 14 Feb 2026 13:26:31 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: text/html; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '1'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            ETag:
+              schema:
+                type: string
+                example: W/"1-NWoZK3kTsExUV00Ywo1G5jlUKKs"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: '1'
+  /deletemultipleappointments:
+    get:
+      tags:
+        - default
+      summary: deletemultipleappointments
+      parameters:
+        - name: AppointmentBookingIDs
+          in: query
+          schema:
+            type: integer
+          example: '7838'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 14 Feb 2026 13:36:07 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: text/html; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '1'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: 'true'
+            ETag:
+              schema:
+                type: string
+                example: W/"1-NWoZK3kTsExUV00Ywo1G5jlUKKs"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: '1'
