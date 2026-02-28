@@ -13,8 +13,6 @@ components:
 paths:
   /checkusertype:
     get:
-      tags:
-        - default
       summary: checkusertype
       security:
         - noauthAuth: []
