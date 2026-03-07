@@ -2001,6 +2001,82 @@ paths:
               examples:
                 getnextslot:
                   value: '29335'
+  /checkisproviderooo:
+    get:
+      summary: checkisproviderooo
+      description: checkisproviderooo
+      operationId: checkisproviderooo
+      parameters:
+        - name: AdminUserMasterId
+          in: query
+          schema:
+            type: string
+            example: '1'
+        - name: BookingDate
+          in: query
+          schema:
+            type: string
+            example: 7-Mar-2026
+      responses:
+        '200':
+          description: checkisproviderooo / checkisproviderooo / checkisproviderooo
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '118'
+            Date:
+              schema:
+                type: string
+                example: Sat, 07 Mar 2026 13:55:15 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"76-wKB3eb88iTjT5eRK24cQhcfL900"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AdminUserMasterID:
+                    type: number
+                    example: 0
+                  BookingDate:
+                    nullable: true
+                    example: null
+                  IsOOO:
+                    type: string
+                    example: Working
+                  IsOOOFlag:
+                    type: number
+                    example: 0
+              examples:
+                checkisproviderooo:
+                  value:
+                    AdminUserMasterID: 0
+                    BookingDate: null
+                    IsOOO: Appointment bookings will open 2 day(s) in advance.
+                    IsOOOFlag: 1
 components:
   securitySchemes: {}
 tags: []
