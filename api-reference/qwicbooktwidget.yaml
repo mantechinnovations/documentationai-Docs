@@ -1934,6 +1934,73 @@ paths:
               examples:
                 deletemultipleappointments:
                   value: '1'
+  /getnextslot:
+    get:
+      summary: getnextslot
+      description: getnextslot
+      operationId: getnextslot
+      parameters:
+        - name: APServiceId
+          in: query
+          schema:
+            type: string
+            example: '1'
+        - name: CurrentDate
+          in: query
+          schema:
+            type: string
+            example: 7-Mar-2026
+        - name: TodayDate
+          in: query
+          schema:
+            type: string
+            example: 7-Mar-2026
+        - name: TodayTime
+          in: query
+          schema:
+            type: string
+            example: '8:30'
+      responses:
+        '200':
+          description: getnextslot
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '5'
+            Date:
+              schema:
+                type: string
+                example: Sat, 07 Mar 2026 03:08:07 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"5-Kf+L0ZVrZX4ZExmzCmGldLqZrgk"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/octet-stream:
+              examples:
+                getnextslot:
+                  value: '29335'
 components:
   securitySchemes: {}
 tags: []
