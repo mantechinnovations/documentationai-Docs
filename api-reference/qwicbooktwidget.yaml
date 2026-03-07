@@ -2004,7 +2004,96 @@ paths:
   /checkisproviderooo:
     get:
       summary: checkisproviderooo
-      description: checkisproviderooo
+      description: >-
+        ## Purpose
+
+
+        Checks whether a provider is marked **Out Of Office (OOO)** for a given
+        booking date.
+
+
+        ## Endpoint
+
+
+        `GET https://d300b.twidget.io/checkisproviderooo`
+
+
+        ## Query parameters
+
+
+        | Parameter | Type | Required | Description |
+
+        | --- | --- | --- | --- |
+
+        | `AdminUserMasterId` | number | Yes | Provider/admin user identifier to
+        check OOO status for. |
+
+        | `BookingDate` | string | Yes | Booking date to check. Expected format:
+        `dd-MMM-yyyy` (e.g., `12-Mar-2026`). |
+
+
+        ## Response (200 OK)
+
+
+        Returns a JSON object with:
+
+
+        | Field | Type | Description |
+
+        | --- | --- | --- |
+
+        | `AdminUserMasterID` | number | Provider/admin user identifier returned
+        by the API (note the casing differs from the request param). |
+
+        | `BookingDate` | string | null |
+
+        | `IsOOO` | string | Human-readable message describing OOO/booking
+        availability. |
+
+        | `IsOOOFlag` | number | Flag indicating OOO/availability state (e.g.,
+        `1` indicates OOO / bookings not open). |
+
+
+        ## Example request
+
+
+        ``` http
+
+        GET /checkisproviderooo?AdminUserMasterId=1&BookingDate=12-Mar-2026
+        HTTP/1.1
+
+        Host: d300b.twidget.io
+
+         ```
+
+        ## Example response - When doctor is Out of Office or when The Booking
+        Windows has not yet opened
+
+
+        ``` json
+
+        {
+          "AdminUserMasterID": 0,
+          "BookingDate": null,
+          "IsOOO": "Appointment bookings will open 2 day(s) ...",
+          "IsOOOFlag": 1
+        }
+
+         ```
+
+        ## When Doctor is working as usual
+
+
+        ``` json
+
+        {
+            "AdminUserMasterID": 0,
+            "BookingDate": null,
+            "IsOOO": "Working",
+            "IsOOOFlag": 0
+        }
+
+         ```
       operationId: checkisproviderooo
       parameters:
         - name: AdminUserMasterId
@@ -2019,7 +2108,7 @@ paths:
             example: 7-Mar-2026
       responses:
         '200':
-          description: checkisproviderooo / checkisproviderooo / checkisproviderooo
+          description: checkisproviderooo
           headers:
             Access-Control-Allow-Credentials:
               schema:
@@ -2066,10 +2155,10 @@ paths:
                     example: null
                   IsOOO:
                     type: string
-                    example: Working
+                    example: Appointment bookings will open 2 day(s) in advance.
                   IsOOOFlag:
                     type: number
-                    example: 0
+                    example: 1
               examples:
                 checkisproviderooo:
                   value:
