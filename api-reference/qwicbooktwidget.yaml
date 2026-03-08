@@ -2180,7 +2180,7 @@ paths:
         dd-MMM-yyyy. It also has a flaf "IsOOO" = 1 or 0; where 1 means Out of
         Office (check box checked) and "0" means Working. Uncheck the checkbox.
         The "OOOMeaage" is the message that is displayed on the App., and on the
-        ChatBot that the doctor has entered
+        ChatBot that the doctor has entered.
 
 
         ## Endpoint
@@ -2230,7 +2230,7 @@ paths:
 
          ```
 
-        ## Example 200 response - Positive Negative Test Results
+        ## Example 200 response - Negative Test Results
 
 
         ``` json
@@ -2365,7 +2365,7 @@ paths:
 
 
         Returns the most recently saved **Late entry details** for a given admin
-        user. Populate the UI with these details qith "LateDate" and "LateTime"
+        user. Populate the UI with these details with "LateDate" and "LateTime"
 
 
         ## Endpoint
