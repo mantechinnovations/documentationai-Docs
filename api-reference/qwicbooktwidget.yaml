@@ -2166,6 +2166,384 @@ paths:
                     BookingDate: null
                     IsOOO: Appointment bookings will open 2 day(s) in advance.
                     IsOOOFlag: 1
+  /getooo:
+    get:
+      summary: getooo
+      description: >-
+        ## Overview
+
+
+        Retrieves the **Out Of Office (OOO)** status and data for a doctor.
+
+
+        This endpoint returns a JSON with FromTime and ToTime as Dates in format
+        dd-MMM-yyyy. It also has a flaf "IsOOO" = 1 or 0; where 1 means Out of
+        Office (check box checked) and "0" means Working. Uncheck the checkbox.
+        The "OOOMeaage" is the message that is displayed on the App., and on the
+        ChatBot that the doctor has entered
+
+
+        ## Endpoint
+
+
+        `GET /getooo`
+
+
+        Base URL (as currently configured):  
+
+        `https://d300b.twidget.io`
+
+
+        ## Required query parameters
+
+
+        | Parameter | Type | Required | Description |
+
+        | --- | --- | --- | --- |
+
+        | `AdminUserMasterId` | integer | Yes | Admin user identifier to fetch
+        OOO details for. |
+
+
+        ## Example request
+
+
+        ``` http
+
+        GET https://d300b.twidget.io/getooo?AdminUserMasterId=1
+
+         ```
+
+        ## Example 200 response - Positive Test Results
+
+
+        ``` json
+
+        {
+          "AdminUserMasterID": 1,
+          "IsOOO": 1,
+          "OOOFrom": "19-Mar-2026, Thu",
+          "OOOID": 2,
+          "OOOMessage": "I am out of office.",
+          "OOOTo": "19-Mar-2026, Thu"
+        }
+
+         ```
+
+        ## Example 200 response - Positive Negative Test Results
+
+
+        ``` json
+
+        {
+            "AdminUserMasterID": 999,
+            "IsOOO": 0,
+            "OOOFrom": "",
+            "OOOID": 0,
+            "OOOMessage": "",
+            "OOOTo": ""
+        }
+
+         ```
+
+        ## Response fields (observed)
+
+
+        | Field | Type | Description |
+
+        | --- | --- | --- |
+
+        | `AdminUserMasterID` | integer | Admin user identifier returned by the
+        service. |
+
+        | `IsOOO` | integer | OOO flag (commonly `1` = out of office, `0` = not
+        out of office). |
+
+        | `OOOFrom` | string | Start date of OOO range (formatted as returned by
+        the API). |
+
+        | `OOOID` | integer | OOO record identifier. |
+
+        | `OOOMessage` | string | Message shown when user is out of office. |
+
+        | `OOOTo` | string | End date of OOO range (formatted as returned by the
+        API). |
+
+
+        ## Notes / behavior
+
+
+        - If `AdminUserMasterId` does not exist or is invalid, the API may
+        return an error or an empty/alternate payload depending on backend
+        behavior.
+            
+        - Date fields (`OOOFrom`, `OOOTo`) are returned as formatted strings
+        (not ISO 8601) as observed in the current response.
+            
+        - `IsOOO` is returned as a numeric flag; treat it as a boolean-like
+        value in client logic.
+      operationId: getooo
+      parameters:
+        - name: AdminUserMasterId
+          in: query
+          schema:
+            type: string
+            example: '1'
+      responses:
+        '200':
+          description: getooo
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '134'
+            Date:
+              schema:
+                type: string
+                example: Sun, 08 Mar 2026 06:34:51 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"86-8f9hvSpyi085qhrqljhMQ9uqgBc"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AdminUserMasterID:
+                    type: number
+                    example: 1
+                  IsOOO:
+                    type: number
+                    example: 1
+                  OOOFrom:
+                    type: string
+                    example: 19-Mar-2026, Thu
+                  OOOID:
+                    type: number
+                    example: 2
+                  OOOMessage:
+                    type: string
+                    example: I am out of office.
+                  OOOTo:
+                    type: string
+                    example: 19-Mar-2026, Thu
+              examples:
+                getooo:
+                  value:
+                    AdminUserMasterID: 1
+                    IsOOO: 1
+                    OOOFrom: 19-Mar-2026, Thu
+                    OOOID: 2
+                    OOOMessage: I am out of office.
+                    OOOTo: 19-Mar-2026, Thu
+  /getlatedetails:
+    get:
+      summary: getlatedetails
+      description: >-
+        ## Purpose
+
+
+        Returns the most recently saved **Late entry details** for a given admin
+        user. Populate the UI with these details qith "LateDate" and "LateTime"
+
+
+        ## Endpoint
+
+
+        - **Method:** `GET`
+            
+        - **URL:** `https://d300b.twidget.io/getlatedetails`
+            
+
+        ## Query parameters
+
+
+        | Name | Type | Required | Description |
+
+        | --- | --- | --- | --- |
+
+        | `AdminUserMasterId` | integer | Yes | Admin user identifier whose
+        latest “late” details should be returned. |
+
+
+        > No other query parameters are currently supported by this request. 
+          
+
+        ## Example request
+
+
+        ``` http
+
+        GET https://d300b.twidget.io/getlatedetails?AdminUserMasterId=1
+
+         ```
+
+        ## Success response (200)
+
+
+        ### Response schema
+
+
+        ``` json
+
+        {
+          "AdminUserMasterID": 0,
+          "LateDate": "string",
+          "LateID": 0,
+          "LateTime": "string",
+          "Message": "string"
+        }
+
+         ```
+
+        ### Sample response: Positive Test Case
+
+
+        ``` json
+
+        {
+          "AdminUserMasterID": 1,
+          "LateDate": "09-Feb-2026, Mon",
+          "LateID": 1086,
+          "LateTime": "11:27",
+          "Message": "Last saved entry being displayed"
+        }
+
+         ```
+
+        ### Sample response: Negtive Test Case
+
+
+        ``` json
+
+        {
+            "AdminUserMasterID": 199,
+            "LateDate": "07-Mar-2026, Sat",
+            "LateID": 0,
+            "LateTime": "00::00",
+            "Message": "Oops!  Cannot find User"
+        }
+
+         ```
+
+        ## Notes on date/time formats
+
+
+        - `LateDate` is returned as a formatted string (example: `09-Feb-2026,
+        Mon`). Treat this as **display-formatted**, not an ISO-8601 date.
+            
+        - `LateTime` is returned as a string in `HH:mm` (24-hour) format
+        (example: `11:27`).
+            
+
+        ## Error cases (placeholders)
+
+
+        > The exact response body for errors is not yet documented; add examples
+        when available. 
+          
+
+        - **401 Unauthorized** — Missing/invalid authentication.
+            
+        - **403 Forbidden** — Authenticated but not permitted to access the
+        specified admin user’s data.
+            
+        - **404 Not Found** — No record found for the given `AdminUserMasterId`
+        (or endpoint not found).
+            
+        - **500 Internal Server Error** — Unexpected server-side error.
+      operationId: getlatedetails
+      parameters:
+        - name: AdminUserMasterId
+          in: query
+          schema:
+            type: string
+            example: '1'
+      responses:
+        '200':
+          description: getlatedetails
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '131'
+            Date:
+              schema:
+                type: string
+                example: Sun, 08 Mar 2026 06:51:04 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"83-daMeqpkJHe7kVB9SiUtA9/6qzBM"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AdminUserMasterID:
+                    type: number
+                    example: 1
+                  LateDate:
+                    type: string
+                    example: 09-Feb-2026, Mon
+                  LateID:
+                    type: number
+                    example: 1086
+                  LateTime:
+                    type: string
+                    example: '11:27'
+                  Message:
+                    type: string
+                    example: Last saved entry being displayed
+              examples:
+                getlatedetails:
+                  value:
+                    AdminUserMasterID: 1
+                    LateDate: 09-Feb-2026, Mon
+                    LateID: 1086
+                    LateTime: '11:27'
+                    Message: Last saved entry being displayed
 components:
   securitySchemes: {}
 tags: []
