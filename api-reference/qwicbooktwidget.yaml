@@ -154,7 +154,103 @@ paths:
   /getuser:
     get:
       summary: getuser
-      description: getuser
+      description: >-
+        ## Purpose
+
+
+        Retrieve Doctor details for a specific AdminUserMasterID (doctor's Id)
+
+
+        ## Base URL + Endpoint
+
+
+        - **Base URL:** `https://d300b.twidget.io`
+            
+        - **Endpoint:** `GET /getuser`
+            
+
+        ## Required Query Parameter
+
+
+        | Name | Type | Required | Example |
+
+        | --- | --- | --- | --- |
+
+        | `AdminUserMasterId` | integer | Yes | `1` |
+
+
+        ## Example Request
+
+
+        ``` http
+
+        GET https://d300b.twidget.io/getuser?AdminUserMasterId=1
+
+         ```
+
+        ## Example 200 Response (key fields)
+
+
+        The response is a JSON array of user objects. Common fields include:
+
+
+        - **Identifiers:** `AdminUserMasterID`, `APServiceID`
+            
+        - **Status/flags:** `Active`, `IsUserAvailable`, `UserType`
+            
+        - **Profile:** `FirstName`, `LastName`, `DisplayName`,
+        `UserQualification`, `UserCategory`
+            
+        - **Contact:** `Email`, `Mobile`
+            
+        - **Location:** `Address1`, `Address2`, `City`, `State`, `AreaID`,
+        `CityID`, `StateID`, `CountryID`
+            
+        - **Other:** `DeviceID`, `ShopCount`, `ShopNames`
+            
+
+        Sensitive field:
+
+
+        - `Password` **is returned** in the response (sensitive). Treat as
+        confidential and avoid exposing or logging it.
+            
+
+        ## Example Response (200)
+
+
+        ``` json
+
+        [
+            {
+                "APServiceID": 0,
+                "Active": "1",
+                "Address1": "75 Hatkesh Society",
+                "Address2": "Juhu Scheme",
+                "AdminUserMasterID": 1,
+                "AreaID": 10,
+                "City": "Mumbai",
+                "CityID": 9,
+                "CountryID": 1,
+                "DeviceID": null,
+                "DisplayName": null,
+                "Email": "drdeepakhbk@gmail.com",
+                "FirstName": "Dr. Deepak",
+                "IsUserAvailable": false,
+                "LastName": "Kansara",
+                "Mobile": "8380021488",
+                "Password": "d*********t",
+                "ShopCount": 0,
+                "ShopNames": null,
+                "State": "MH",
+                "StateID": 2,
+                "UserCategory": null,
+                "UserQualification": null,
+                "UserType": "Provider"
+            }
+        ]
+
+         ```
       operationId: getuser
       parameters:
         - name: AdminUserMasterId
@@ -334,7 +430,112 @@ paths:
   /getuserinformation:
     get:
       summary: getuserinformation
-      description: getuserinformation
+      description: >-
+        ## getuserinformation
+
+
+        Fetches user/account information for a given admin user master record.
+        Use the API in the About Qwicbook page to fetch the Doctor Registration
+        details that includes the Subscription Expire Date which is available in
+        the `ExpireDate` attribute
+
+
+        ### Base URL
+
+
+        `https://d300b.twidget.io`
+
+
+        ### Endpoint
+
+
+        `GET /getuserinformation`
+
+
+        ### Query parameters
+
+
+        | Name | Required | Type | Description |
+
+        | --- | --- | --- | --- |
+
+        | `AdminUserMasterId` | Yes | integer | Representing a Doctor's ID |
+
+
+        ### Example request
+
+
+        ``` http
+
+        GET https://d300b.twidget.io/getuserinformation?AdminUserMasterId=1
+
+         ```
+
+        ### 200 OK (Success)
+
+
+        Returns an array of objects.
+
+
+        #### Response schema (200)
+
+
+        ``` json
+
+        [
+          {
+            "CustomerNumber": "string",
+            "ExpiryDate": "string",
+            "RegisteredEmailID": "string",
+            "RegisteredMobile": "string",
+            "Remarks": "string",
+            "SupportMobileNumber1": "string | null"
+          }
+        ]
+
+         ```
+
+        #### Sample response (from last run)
+
+
+        ``` json
+
+        [
+          {
+            "CustomerNumber": "108155",
+            "ExpiryDate": "31-Dec-2030",
+            "RegisteredEmailID": "drdeepakhbk@gmail.com",
+            "RegisteredMobile": "7391891540",
+            "Remarks": "",
+            "SupportMobileNumber1": null
+          }
+        ]
+
+         ```
+
+        ### Common error responses (generic)
+
+
+        - **401 Unauthorized**: Missing/invalid authentication.
+            
+        - **403 Forbidden**: Authenticated but not permitted.
+            
+        - **404 Not Found**: Endpoint not found or resource unavailable.
+            
+        - **500 Internal Server Error**: Unexpected server error.
+            
+
+        ### Notes
+
+
+        - **PII**: The response can include personally identifiable information
+        (e.g., `RegisteredEmailID`, `RegisteredMobile`). Handle/store with care
+        and avoid sharing in logs or public docs.
+            
+        - **Caching**: If responses are cached (client/proxy/server), ensure
+        caching is configured appropriately to prevent unintended exposure of
+        user data. Prefer `Cache-Control: no-store` (or equivalent) when dealing
+        with PII, and avoid caching on shared devices/browsers.
       operationId: getuserinformation
       parameters:
         - name: AdminUserMasterId
@@ -424,7 +625,78 @@ paths:
   /providerdetails:
     get:
       summary: providerdetails
-      description: providerdetails
+      description: >-
+        ## Overview
+
+
+        Returns the list of provider/services available for a given doctor
+        represented as `AdminUserMasterId`
+
+
+        This endpoint is typically used to fetch the doctor's active clinics.
+
+
+        ## Base URL
+
+
+        `https://d300b.twidget.io`
+
+
+        ## Endpoint
+
+
+        `GET /providerdetails`
+
+
+        ## Query parameters
+
+
+        | Parameter | Type | Required | Description |
+
+        | --- | --- | --- | --- |
+
+        | `AdminUserMasterId` | integer | Yes | Admin user master identifier
+        used to look up provider/service details. |
+
+
+        ## Example request
+
+
+        ``` http
+
+        GET https://d300b.twidget.io/providerdetails?AdminUserMasterId=1
+
+         ```
+
+        ## Example 200 response
+
+
+        ``` json
+
+        [
+          {
+            "APServiceID": 1,
+            "AssociationType": null,
+            "ServiceName": "Lokhandwala Clinic"
+          },
+          {
+            "APServiceID": 2,
+            "AssociationType": null,
+            "ServiceName": "Juhu Clinic"
+          },
+          {
+            "APServiceID": 103,
+            "AssociationType": null,
+            "ServiceName": "Orchid Hospital (Orthopedic)"
+          },
+          {
+            "APServiceID": 5,
+            "AssociationType": null,
+            "ServiceName": "Nijanand Clinic"
+          }
+        ]
+
+         ```
       operationId: providerdetails
       parameters:
         - name: AdminUserMasterId
@@ -517,7 +789,193 @@ paths:
   /getproviderdetailsbyappointment:
     get:
       summary: getproviderdetailsbyappointment
-      description: getproviderdetailsbyappointment
+      description: >-
+        ## Purpose
+
+
+        Retrieve provider details for a specific appointment booking.
+
+
+        This endpoint returns an array of provider detail records associated
+        with the given appointment booking ID (for example, provider name,
+        qualification, service/location details, and appointment time changes).
+
+
+        ---
+
+
+        ## Endpoint & Method
+
+
+        - **Method:** `GET`
+            
+        - **URL:** `https://d300b.twidget.io/getproviderdetailsbyappointment`
+            
+
+        ---
+
+
+        ## Query Parameters
+
+
+        ### Required
+
+
+        - `AppointmentBookingId` _(number | string)_
+            - The appointment booking identifier to look up provider details.
+                
+
+        ### Optional
+
+
+        - None documented.
+            
+
+        ---
+
+
+        ## Example Request
+
+
+        ``` http
+
+        GET
+        https://d300b.twidget.io/getproviderdetailsbyappointment?AppointmentBookingId=7871
+
+         ```
+
+        **cURL**
+
+
+        ``` bash
+
+        curl --request GET \
+          --url 'https://d300b.twidget.io/getproviderdetailsbyappointment?AppointmentBookingId=7871'
+
+         ```
+
+        ---
+
+
+        ## Example 200 Response: When the Time Delay Is Set
+
+
+        > Note: this API is to be used when we want to find out the New Time
+        based on the Time Delay set by the doctor. The `NewTime`attribute shows
+        a time if the Time Delay has been set by the doctor. If `NewTime`
+        attribute indicates the value `On Time!` it means the Time Delay
+        function is inactive and the doctor is running on schedule. 
+          
+
+        ``` json
+
+        [
+            {
+                "Address": "Lokhandwala Complex, Andheri (W) Mumbai - 400053",
+                "AppointmentBookingID": 7871,
+                "Category": "Doctor",
+                "FullName": "Dr. Deepak Kansara",
+                "Message": "Providers details for your appointment",
+                "Mobile": "8380021488",
+                "NewTime": "11:32 (Your new time)",
+                "OldTime": "11:05",
+                "Qualification": "General Physician",
+                "ServiceName": "Lokhandwala Clinic"
+            }
+        ]
+
+         ```
+
+        ---
+
+
+        ## Example 200 Response: When the Time Delay Is Inactive
+
+
+        ``` json
+
+        [
+            {
+                "Address": "Lokhandwala Complex, Andheri (W) Mumbai - 400053",
+                "AppointmentBookingID": 7810,
+                "Category": "Doctor",
+                "FullName": "Dr. Deepak Kansara",
+                "Message": "Providers details for your appointment",
+                "Mobile": "8380021488",
+                "NewTime": "On Time!",
+                "OldTime": "18:25",
+                "Qualification": "General Physician",
+                "ServiceName": "Lokhandwala Clinic"
+            }
+        ]
+
+         ```
+
+        ## Nagitive Validation:
+
+
+        This scenario should not exists as there will always the
+        AppointmentBookingID available to fetch the New and the Old Time.
+
+
+        ``` json
+
+        [
+            {
+                "Address": "Untitled",
+                "AppointmentBookingID": 78719,
+                "Category": "Untitled",
+                "FullName": "Untitled",
+                "Message": "Unable to find the correct appointment",
+                "Mobile": "Untitled",
+                "NewTime": "00:00",
+                "OldTime": "00:00",
+                "Qualification": "Untitled",
+                "ServiceName": "Not Found"
+            }
+        ]
+
+         ```
+
+        ### Field Notes
+
+
+        - `AppointmentBookingID` is returned in the response and should
+        correspond to the `AppointmentBookingId` query param.
+            
+        - `Mobile` may contain sensitive phone data; avoid logging it in
+        plaintext.
+            
+        - `OldTime` / `NewTime` indicate time changes (if applicable).
+            
+
+        ---
+
+
+        ## Error / Edge Case Notes
+
+
+        This request currently has no saved error examples. Typical patterns to
+        watch for:
+
+
+        - **400 Bad Request**: missing/invalid `AppointmentBookingId`.
+            
+        - **404 Not Found**: no provider details found for the given booking ID.
+            
+        - **500 Internal Server Error**: unexpected server-side failure.
+            
+
+        Suggested client-side handling:
+
+
+        - Validate `AppointmentBookingId` is present and numeric before calling.
+            
+        - If response is an empty array, treat as “no data found” (depending on
+        backend behavior).
+            
+
+        ---
       operationId: getproviderdetailsbyappointment
       parameters:
         - name: AppointmentBookingId
@@ -627,7 +1085,188 @@ paths:
   /getappointmentbyshop:
     get:
       summary: getappointmentbyshop
-      description: getappointmentbyshop
+      description: >-
+        ## Purpose
+
+
+        Fetches the list of appointment bookings for a given shop/service
+        (`APServiceId`) on a specific date (`AppointmentDate`).
+
+
+        This endpoint returns an array of appointment objects (one per
+        booking/time slot) with patient/display information, timing,
+        token/sequence, and check-in/check-out flags.
+
+
+        Note: Use this api to fetch the appointments booked for a Shop and
+        specific date.
+
+
+        ---
+
+
+        ## Method & Endpoint
+
+
+        `GET /getappointmentbyshop`
+
+
+        ---
+
+
+        ## Required query parameters
+
+
+        | Parameter | Type | Required | Description |
+
+        | --- | --- | --- | --- |
+
+        | `APServiceId` | number | Yes | Service/shop identifier to fetch
+        appointments for. |
+
+        | `AppointmentDate` | string | Yes | Appointment date to query. Example
+        format observed: `9-Feb-2026` (also returned as `09-Feb-2026` in the
+        response). |
+
+
+        ---
+
+
+        ## Example request URL
+
+
+        ``` text
+
+        https://d300b.twidget.io/getappointmentbyshop?APServiceId=1&AppointmentDate=9-Feb-2026
+
+         ```
+
+        ---
+
+
+        ## Response
+
+
+        **200 OK**
+
+
+        Returns a JSON array of appointment objects.
+
+
+        ### Appointment object (key fields)
+
+
+        | Field | Type | Meaning |
+
+        | --- | --- | --- |
+
+        | `APServiceTransID` | number | Unique transaction/row identifier for
+        the appointment entry. |
+
+        | `AppointmentBookingID` | number | Booking identifier for the
+        appointment. |
+
+        | `AdminUserMasterID` | number | Admin/user identifier associated with
+        the booking. |
+
+        | `BookedForDate` | string | Date the appointment is booked for (e.g.,
+        `09-Feb-2026`). |
+
+        | `BookingDate` | string | Date the booking was created. |
+
+        | `FromTime` | string | Start time for the appointment slot (e.g.,
+        `11:00`). |
+
+        | `ToTime` | string | End time for the appointment slot (e.g., `11:05`).
+        |
+
+        | `TokenNumber` | string/number | Token/queue number for the appointment
+        (often increments for the day). |
+
+        | `SequenceNumber` | string/number | Sequence value (may represent
+        ordering/priority; observed values like `0`, `1`). |
+
+        | `PatientName` | string | Patient name for the booking. |
+
+        | `DisplayName` | string | Display label for the booking (often includes
+        name and source/user type). |
+
+        | `ParentName` | string | Parent/source label (e.g., channel/user type
+        such as `Web User`). |
+
+        | `Remarks` | string | Free-text notes/remarks captured with the
+        booking. |
+
+        | `UserIn` | number (0/1) | Check-in flag (1 = in/checked in; 0 = not
+        checked in). |
+
+        | `UserOut` | number (0/1) | Check-out flag (1 = out/checked out; 0 =
+        not checked out). |
+
+
+        ### Sample response
+
+
+        ``` json
+
+        [
+          {
+            "APServiceTransID": 28891,
+            "AdminUserMasterID": 6,
+            "AppointmentBookingID": 7870,
+            "BookedForDate": "09-Feb-2026",
+            "BookingDate": "08-Feb-2026",
+            "DisplayName": "Tushar (Web User)",
+            "FromTime": "11:00",
+            "ParentName": "Web User",
+            "PatientName": "Tushar",
+            "Remarks": "8380021488 - Bot - Testing",
+            "SequenceNumber": "0",
+            "ToTime": "11:05",
+            "TokenNumber": "1",
+            "UserIn": 0,
+            "UserOut": 0
+          }
+        ]
+
+         ```
+
+        ## Negative Validation: When No Appointments Are Booked For A Specific
+        Date:
+
+
+        The `APServiceTransactionID` is always `0`
+
+
+        ``` json
+
+        [
+            {
+                "APServiceTransID": 0,
+                "AdminUserMasterID": 0,
+                "AppointmentBookingID": 0,
+                "BookedForDate": null,
+                "BookingDate": null,
+                "DisplayName": "No Appointments Found!",
+                "FromTime": "",
+                "ParentName": null,
+                "PatientName": null,
+                "Remarks": "",
+                "SequenceNumber": null,
+                "ToTime": null,
+                "TokenNumber": "0",
+                "UserIn": 0,
+                "UserOut": 0
+            }
+        ]
+
+         ```
+
+        ## Notes
+
+
+        - The endpoint returns an empty array (`[]`) when there are no
+        appointments for the given `APServiceId` and `AppointmentDate`.
       operationId: getappointmentbyshop
       parameters:
         - name: APServiceId
@@ -642,7 +1281,7 @@ paths:
             example: 9-Feb-2026
       responses:
         '200':
-          description: getappointmentbyshop
+          description: getappointmentbyshop / 200 - No appointments found
           headers:
             Access-Control-Allow-Credentials:
               schema:
@@ -775,6 +1414,23 @@ paths:
                     UserIn: 1
                     UserOut: 1
               examples:
+                200 - No appointments found:
+                  value:
+                    - APServiceTransID: 0
+                      AdminUserMasterID: 0
+                      AppointmentBookingID: 0
+                      BookedForDate: null
+                      BookingDate: null
+                      DisplayName: No Appointments Found!
+                      FromTime: ''
+                      ParentName: null
+                      PatientName: null
+                      Remarks: ''
+                      SequenceNumber: null
+                      ToTime: null
+                      TokenNumber: '0'
+                      UserIn: 0
+                      UserOut: 0
                 getappointmentbyshop:
                   value:
                     - APServiceTransID: 28891
@@ -827,7 +1483,141 @@ paths:
   /getschedule:
     get:
       summary: getschedule
-      description: getschedule
+      description: >-
+        ## Purpose
+
+
+        Retrieve the appointment schedule (time slots) for a given service
+        (`APServiceId`) on a specific date/time context.
+
+
+        This endpoint returns an array of time slots with token information
+        embedded in `FromTime`.
+
+
+        Example: Assuming today is 14-Mar-26 (CurrentDate). On this date, want
+        to book a future appointment for 16-Mar-26 (TodayDate) at 14:30
+        (TodayTime).
+
+
+        Note: The Slots (ToTime) are dynamic based upon the appointment date;
+        meaning, past dates appointments cannot be booked included past time.
+
+
+        ---
+
+
+        ## Query parameters
+
+
+        | Parameter | Type | Required | Example | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | `APServiceId` | integer | Yes | `1` | Shop Identifier |
+
+        | `CurrentDate` | string (date) | Yes | `14-Mar-2026` | The date on
+        which the schedule is being fetched |
+
+        | `TodayDate` | string (date) | Yes | `16-Mar-2026` | Date <u>for </u>
+        which the booking should be done. |
+
+        | `TodayTime` | string (time) | Yes | `14:30` | Time <u>for </u> which
+        the booking should be done |
+
+
+        ---
+
+
+        ## Example request
+
+
+        ``` http
+
+        GET
+        https://d300b.twidget.io/getschedule?APServiceId=1&CurrentDate=14-Mar-2026&TodayDate=16-Mar-2026&TodayTime=14:30
+
+         ```
+
+        ---
+
+
+        ## Example response (200): Positive Validation when slots are available.
+
+
+        ``` json
+
+        [
+          {
+            "APServiceID": 1,
+            "APServiceTransID": 29335,
+            "CurrentDate": null,
+            "Day": 0,
+            "DayPart": "M",
+            "FromTime": "11:00 | TKN: 1",
+            "IsOOOFlag": 0,
+            "ToTime": "11:05"
+          },
+          {
+            "APServiceID": 1,
+            "APServiceTransID": 29336,
+            "CurrentDate": null,
+            "Day": 0,
+            "DayPart": "M",
+            "FromTime": "11:05 | TKN: 2",
+            "IsOOOFlag": 0,
+            "ToTime": "11:10"
+          }
+        ]
+
+         ```
+
+        ## Example response: When there are no slots available for a given date
+
+
+        ``` json
+
+        [
+            {
+                "APServiceID": 0,
+                "APServiceTransID": 0,
+                "CurrentDate": null,
+                "Day": 0,
+                "DayPart": null,
+                "FromTime": "No Schedule for the day",
+                "IsOOOFlag": 0,
+                "ToTime": null
+            }
+        ]
+
+         ```
+
+        ### Date/time formats
+
+
+        - `CurrentDate` / `TodayDate` are expected in `DD-MMM-YYYY` format
+        (e.g., `14-Mar-2026`).
+            
+        - `TodayTime` is expected in 24-hour `HH:mm` format (e.g., `14:30`).
+            
+
+        ### Token parsing (`FromTime`)
+
+
+        - `FromTime` contains a human-readable time plus token, typically in the
+        form: Always use the FormTime to display the available slots.
+            
+            - `"HH:mm | TKN: N"`
+                
+        - If you need the token as a number, parse the substring after `TKN:`
+        and trim whitespace.
+            
+
+        ### Flags
+
+
+        - `IsOOOFlag` indicates out-of-office/unavailable status (commonly `0`
+        for available, `1` for unavailable).
       operationId: getschedule
       parameters:
         - name: APServiceId
