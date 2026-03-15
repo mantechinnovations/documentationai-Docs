@@ -10,7 +10,76 @@ paths:
   /checkusertype:
     get:
       summary: checkusertype
-      description: checkusertype
+      description: >-
+        Determines the user type for a given email address. The UserTy\[e
+        attribute could either hold `Provider` or `User` as a value
+
+
+        ### Purpose
+
+
+        Use this endpoint to look up which **UserType** (e.g., `Provider`) is
+        associated with the provided email. The response also includes basic
+        profile identifiers (IDs and contact fields) for the matched user.
+
+
+        ### Query parameters
+
+
+        | Name | Type | Required | Description |
+
+        | --- | --- | --- | --- |
+
+        | `Email` | string | Yes | Email address to check. Must be URL-encoded
+        when it contains special characters (e.g., `+`, spaces). |
+
+
+        ### Example request
+
+
+        ``` http
+
+        GET https://d300b.twidget.io/checkusertype?Email=drdeepakhbk@gmail.com
+
+         ```
+
+        ### Example 200 response
+
+
+        ``` json
+
+        [
+          {
+            "AdminUserMasterID": 1,
+            "City": "Mumbai",
+            "CityID": 9,
+            "Mobile": "8380021488",
+            "UserType": "Provider"
+          }
+        ]
+
+         ```
+
+        ### Example 200 response: When User Not Found
+
+
+        Take a note of the `AdminUserMasterID` attribute returning `0` if the
+        data is not found.
+
+
+        ``` json
+
+        [
+            {
+                "AdminUserMasterID": 0,
+                "City": null,
+                "CityID": 0,
+                "Mobile": "0",
+                "UserType": "User type not found"
+            }
+        ]
+
+         ```
       operationId: checkusertype
       parameters:
         - name: Email
@@ -95,7 +164,50 @@ paths:
   /authenticate:
     get:
       summary: authenticate
-      description: authenticate
+      description: >-
+        ### Authenticate
+
+
+        Authenticates a user using an email address and password and returns a
+        boolean indicating whether the credentials are valid.
+
+
+        #### Purpose
+
+
+        Use this endpoint to verify a user’s credentials before allowing access
+        to protected flows.
+
+
+        #### Required query parameters
+
+
+        | Parameter | Type | Required | Description |
+
+        | --- | --- | --- | --- |
+
+        | `Email` | string | Yes | User’s email address. |
+
+        | `Password` | string | Yes | User’s password. |
+
+
+        #### Example call
+
+
+        `GET`
+        [<code>https://d300b.twidget.io/authenticate?Email={{email}}&amp;Password={{password}}</code>](https://d300b.twidget.io/authenticate?Email=%7B%7Bemail%7D%7D&Password=%7B%7Bpassword%7D%7D)
+
+
+        Expected response
+
+
+        - **200 OK**
+            
+        - Body: boolean
+            
+            - `true` — credentials are valid
+                
+            - `false` — credentials are invalid
       operationId: authenticate
       parameters:
         - name: Email
@@ -2292,7 +2404,9 @@ paths:
   /Appointment/Service1.svc/InsertOOO:
     post:
       summary: Appointment/InsertOOO
-      description: Appointment/InsertOOO
+      description: >-
+        # Do Not User This End Point as this is an "http" End Point and will not
+        work in the app. Instead use "insertooo"
       operationId: appointmentInsertooo
       requestBody:
         content:
@@ -2339,7 +2453,83 @@ paths:
   /insertooo:
     post:
       summary: insertooo
-      description: insertooo
+      description: >-
+        ## Purpose
+
+
+        Creates or updates an “Out Of Office (OOO)” entry for a Doctor.
+
+
+        ## Endpoint
+
+
+        `POST https://d300b.twidget.io/insertooo`
+
+
+        ## Request body (JSON)
+
+
+        Send a JSON object in the request body.
+
+
+        ### Fields
+
+
+        | Field | Type | Required | Notes / Format |
+
+        | --- | --- | --- | --- |
+
+        | `OOOID` | string (numeric ID) | Yes | OOO record identifier. ALways
+        use`"0"` to create a new OOO entry; or to update |
+
+        | `AdminUserMasterID` | string (numeric ID) | Yes | Doctor ID to which
+        the OOO entry belongs to. |
+
+        | `IsOOO` | string or number | Yes | Flag indicating OOO status: `0` =
+        not OOO, `1` = OOO. |
+
+        | `OOOFrom` | string (datetime) | Yes | Start datetime in ISO 8601
+        format (e.g., `YYYY-MM-DDTHH:mm:ss`). Example: `2026-02-01T00:00:00`. |
+
+        | `OOOTo` | string (datetime) | Yes | End datetime in ISO 8601 format
+        (e.g., `YYYY-MM-DDTHH:mm:ss`). Example: `2026-02-10T00:00:00`. |
+
+        | `OOOMessage` | string | Yes | Message to display while the user is out
+        of office. |
+
+
+        ## Example request payload
+
+
+        ``` json
+
+        {
+          "OOOID": "0",
+          "AdminUserMasterID": "1",
+          "IsOOO": "0",
+          "OOOFrom": "2026-02-01T00:00:00",
+          "OOOTo": "2026-02-10T00:00:00",
+          "OOOMessage": "I am out of office"
+        }
+
+         ```
+
+        ## Response
+
+
+        ### Success
+
+
+        - **HTTP 200 OK**
+            
+        - Response body (based on the current successful response):
+            - `1`
+                
+
+        The value `1` indicates the operation succeeded. Note, that the value
+        returned is always `1` irrespective of success or failure. So, endure
+        that the operation is validated agains the table `Admin_OOO` after an
+        update.
       operationId: insertooo
       requestBody:
         content:
@@ -2420,7 +2610,136 @@ paths:
   /insertappointments:
     post:
       summary: insertappointments
-      description: insertappointments
+      description: >-
+        ### Purpose
+
+
+        Create/insert a new appointment in the Qwicbook system.
+
+
+        ### Endpoint
+
+
+        - **Method:** `POST`
+            
+        - **URL:** `https://d300b.twidget.io/insertappointments`
+            
+
+        ### Authentication
+
+
+        - Not configured in this request.
+            
+
+        ### Headers
+
+
+        - This endpoint expects JSON.
+            
+        - Typical header:
+            
+            - `Content-Type: application/json`
+                
+
+        ### Request body (JSON)
+
+
+        | Field | Type | Required | Description | Example |
+
+        | --- | --- | --- | --- | --- |
+
+        | `AdminUserMasterID` | string/number | Yes | Always pass `6`. This
+        identifies that the booking is being done by receptionist. | `"6"` |
+
+        | `APServiceTransID` | string/number | Yes | Slot reference ID. |
+        `"28893"` |
+
+        | `Remarks` | string | No | Notes/remarks for the appointment. | `"from
+        postman Twidget"` |
+
+        | `BookedForDate` | string | Yes | Appointment date. See **Date format**
+        notes below. | `"3-Mar-2026"` |
+
+        | `PatientName` | string | Yes | Patient/customer name. | `"Tushar
+        Parmar"` |
+
+        | `AlternateMobile` | string | No | Patient Mobile Number for contact. |
+        `"7391891540"` |
+
+
+        ### Example request
+
+
+        ``` json
+
+        POST https://d300b.twidget.io/insertappointments
+
+        Content-Type: application/json
+
+        {
+          "AdminUserMasterID": "6",
+          "APServiceTransID": "28893",
+          "Remarks": "from postman Twidget",
+          "BookedForDate": "16-Mar-2026",
+          "PatientName": "Tushar Parmar",
+          "AlternateMobile": "7391891540"
+        }
+
+         ```
+
+        ### Example responses (generic)
+
+
+        #### Success (200 OK) - If `AppointmentBookinfID` value is greater than
+        `0`
+
+
+        ``` json
+
+        [
+            {
+                "AppointmentBookingID": 7931,
+                "Token": "3"
+            }
+        ]
+
+         ```
+
+        #### Error (200 OK): If the `AppointmentBookingID` value is equal to `0`
+
+
+        ``` json
+
+        [
+            {
+                "AppointmentBookingID": 0,
+                "Token": "0"
+            }
+        ]
+
+         ```
+
+        ### Notes / validations
+
+
+        - Logic: Write your logic based on the response attribute
+        AppointmentBookingID. If it returns 0 then the appointment is not
+        booked. Most of the times its because someone booked the same slot
+        before you.
+            
+        - **Date format:** `BookedForDate` is currently sent as `3-Mar-2026`
+        (e.g., `D-MMM-YYYY`). Ensure the server accepts this exact format and
+        locale (English month abbreviations).
+            
+        - **IDs as strings:** `AdminUserMasterID` and `APServiceTransID` are
+        sent as strings here. If the API expects numbers, send them as JSON
+        numbers instead.
+            
+        - **Mobile number:** `AlternateMobile` should typically be digits only;
+        length is 10 digits.
+            
+        - **Required fields:** If any required field is missing/blank, expect a
+        400-level validation response.
       operationId: insertappointments
       requestBody:
         content:
@@ -2517,7 +2836,83 @@ paths:
   /insertlatedetails:
     post:
       summary: insertlatedetails
-      description: insertlatedetails
+      description: >-
+        ## Purpose
+
+
+        Create or update a "late" notification/message for a Doctor. Use this
+        End Point to save Late Details that the doctor will publish to their
+        patients. Example: Like, I am running late by 30 minutes.
+
+
+        ## Endpoint
+
+
+        - **Method:** `POST`
+            
+        - **URL:** `https://d300b.twidget.io/insertlatedetails`
+            
+
+        ## Request Body (JSON)
+
+
+        Send a JSON object with the following fields:
+
+
+        | Field | Type | Required | Notes |
+
+        | --- | --- | --- | --- |
+
+        | `LateID` | string (numeric) | Yes | Use **`"0"`** to create a new late
+        record. Use an existing ID value to update an existing record. |
+
+        | `AdminUserMasterID` | string (numeric) | Yes | Docor ID identifier. |
+
+        | `LateDate` | string | Yes | Date string. Based on current usage:
+        `d-MMM-yyyy` (example: `9-Feb-2026`). |
+
+        | `LateTime` | string | Yes | Time string. Based on current usage:
+        `HH:mm` 24-hour format (example: `11:27`). |
+
+        | `Message` | string | Yes | Message/reason (free text). |
+
+
+        ### Sample Request Body
+
+
+        ``` json
+
+        {
+          "LateID": "0",
+          "AdminUserMasterID": "1",
+          "LateDate": "9-Feb-2026",
+          "LateTime": "11:27",
+          "Message": "Sorry running late"
+        }
+
+         ```
+
+        In the above JSON, the `LateTime` is being displayed as `11:27` meaning
+        that the doctor is going to be late by `27 minutes`. Assuming the doctor
+        starts his clinic at 11:00.
+
+
+        ## Success Response
+
+
+        - **HTTP 200 OK**
+            
+        - **Body:** `1`
+            
+
+        Example:
+
+
+        ``` text
+
+        1
+
+         ```
       operationId: insertlatedetails
       requestBody:
         content:
@@ -2556,7 +2951,80 @@ paths:
   /updateappointmentstatusex:
     get:
       summary: updateappointmentstatusex
-      description: updateappointmentstatusex
+      description: >-
+        ### Purpose
+
+
+        Updates the **check-in / check-out (in/out) status** for one or more
+        appointment bookings.
+
+
+        This endpoint returns a simple success indicator (see **Response**).
+
+
+        ---
+
+
+        ### Method & URL
+
+
+        `GET {{baseUrl}}/updateappointmentstatusex`
+
+
+        ---
+
+
+        ### Query parameters
+
+
+        | Parameter | Type | Required | Description |
+
+        | --- | --- | --- | --- |
+
+        | `AppointmentBookingIDs` | string | Yes | Appointment Booking IDs to
+        update. Often a single ID (e.g., `7874`). |
+
+        | `UserInOut` | integer | Yes | The value is always `1` |
+
+        | `InOutStatus` | string | Yes | The target status. Common values: `In`
+        or `Out` (case sensitive) |
+
+
+        ---
+
+
+        ### Example call
+
+
+        ``` http
+
+        GET
+        https://d300b.twidget.io/updateappointmentstatusex?AppointmentBookingIDs=7874&UserInOut=1&InOutStatus=Out
+
+         ```
+
+        ---
+
+
+        ### Response
+
+
+        - **200 OK**: The response body may be a simple scalar value.
+            
+            - `1`
+                
+            - `1` indicates success (implementation-specific).
+                
+
+        ### Notes
+
+
+        - This endpoint performs an update while using `GET` (side effect). If
+        you experience caching/proxy issues, ensure intermediaries do not cache
+        this request.
+            
+        - If updates fail, validate that the appointment booking ID(s) exist and
+        that `InOutStatus` matches the allowed values in your system.
       operationId: updateappointmentstatusex
       parameters:
         - name: AppointmentBookingIDs
@@ -2618,7 +3086,110 @@ paths:
   /deleteappointmentwithcustommessage:
     get:
       summary: deleteappointmentwithcustommessage
-      description: deleteappointmentwithcustommessage
+      description: >-
+        ## Purpose
+
+
+        Deletes/cancels an existing appointment identified by
+        `AppointmentBookingID` and associates a human-readable cancellation
+        reason/message (`CustomMessage`).
+
+
+        This request uses **query parameters** (no request body).
+
+
+        ---
+
+
+        ## Endpoint
+
+
+        `GET /deleteappointmentwithcustommessage`
+
+
+        Base URL (as currently configured):  
+
+        `https://d300b.twidget.io`
+
+
+        ---
+
+
+        ## Query parameters
+
+
+        | Parameter | Type | Required | Description |
+
+        | --- | --- | --- | --- |
+
+        | `AppointmentBookingID` | number (integer) | Yes | The unique
+        booking/appointment identifier to delete/cancel. |
+
+        | `CustomMessage` | string | Yes | Message to store/log/send (e.g.,
+        reason for cancellation). |
+
+
+        ### Encoding / URL notes
+
+
+        - Because `CustomMessage` is placed in the URL, it must be
+        **URL-encoded**.
+            
+            - Spaces should be encoded as (or `+`, depending on encoding).
+                
+            - Reserved characters such as `&`, `?`, `#`, `=` must be encoded to avoid breaking the query string.
+                
+
+        ---
+
+
+        ## Example usage
+
+
+        Query params:
+
+
+        - `AppointmentBookingID`: `7868`
+            
+        - `CustomMessage`: `Sorry, I cannot make it`
+            
+
+        Full URL (as currently configured):
+
+
+        ```
+
+        https://d300b.twidget.io/deleteappointmentwithcustommessage?AppointmentBookingID=7868&CustomMessage=Sorry,%20I%20cannot%20make%20it
+
+         ```
+
+        ---
+
+
+        ## Response
+
+
+        ### Observed response
+
+
+        - HTTP `200 OK`
+            
+        - Body: `0`
+            
+
+        ### Meaning of `0` and other possible responses
+
+
+        The API’s response contract is **not documented here**, so the exact
+        meaning of `0` is **unknown**.
+
+
+        Based on common patterns, the body is a numeric status code such as:
+
+
+        - 1 = success, or
+            
+        - `0` = failure/“not deleted”, or
       operationId: deleteappointmentwithcustommessage
       parameters:
         - name: AppointmentBookingID
@@ -2675,7 +3246,103 @@ paths:
   /deletemultipleappointments:
     get:
       summary: deletemultipleappointments
-      description: deletemultipleappointments
+      description: >-
+        ## Purpose
+
+
+        Deletes (cancels/removes) one or more appointment bookings in the
+        Qwicbook system.
+
+
+        - **Endpoint:** `/deletemultipleappointments`
+            
+        - **Method:** `GET`
+            
+
+        ## Base URL
+
+
+        ``` text
+
+        https://d300b.twidget.io
+
+         ```
+
+        ## Query parameters
+
+
+        | Parameter | Type | Required | Description |
+
+        | --- | --- | --- | --- |
+
+        | `AppointmentBookingIDs` | string | Yes | One or more appointment
+        booking IDs to delete. This API name implies multiple IDs are supported
+        (often comma-separated), e.g. `7838,7839`. |
+
+
+        ## Example usage
+
+
+        Single ID:
+
+
+        ``` text
+
+        GET
+        https://d300b.twidget.io/deletemultipleappointments?AppointmentBookingIDs=7838
+
+         ```
+
+        Multiple IDs (if supported by your backend):
+
+
+        ``` text
+
+        GET
+        https://d300b.twidget.io/deletemultipleappointments?AppointmentBookingIDs=7838,7839
+
+         ```
+
+        ## Responses
+
+
+        ### `200 OK`
+
+
+        The API returns a plain text / numeric body.
+
+
+        Example response body: Greater than 0 meaning the appointment is
+        deleted. If two apointments are deleted the response will be 2, so on
+        and so forth
+
+
+        ``` text
+
+        1
+
+         ```
+
+        **Response meaning (common patterns):**
+
+
+        - `0` indicates No appointments are deleted (error). Implementation
+        return a count of deleted records instead.
+            
+
+        ## Cautions / notes
+
+
+        - **Destructive operation:** This deletes/cancels appointments. Use with
+        care, especially in production.
+            
+        - **GET used for deletion:** Although this endpoint uses `GET`, it
+        performs a state-changing action. Be cautious when sharing URLs, saving
+        them in history, or running monitors/automations.
+            
+        - **Multiple IDs format:** If multiple IDs are supported, verify the
+        delimiter/format (comma-separated vs. repeated query params) in the
+        backend implementation.
       operationId: deletemultipleappointments
       parameters:
         - name: AppointmentBookingIDs
@@ -2727,7 +3394,107 @@ paths:
   /getnextslot:
     get:
       summary: getnextslot
-      description: getnextslot
+      description: >-
+        Returns the **next available appointment slot** for a given service,
+        using a reference date/time. The End Point returns either a 0 (when
+        there are no slots available) or a value greater than 0 indicating that
+        a slot is available. The response is an `APServiceTransactionID` which
+        can be further queried to get details about the slots by a seperate End
+        Point.
+
+
+        ## Endpoint
+
+
+        `GET /getnextslot`
+
+
+        Base URL (as used in this collection):  
+
+        `https://d300b.twidget.io`
+
+
+        ## Query parameters
+
+
+        | Parameter | Type | Required | Description |
+
+        | --- | --- | --- | --- |
+
+        | `APServiceId` | integer | Yes | Appointment/Service identifier to find
+        availability for. Example: `1`. |
+
+        | `CurrentDate` | string | Yes | This is the DateTime.Now as-is Format:
+        `D-MMM-YYYY` (e.g., `7-Mar-2026`). |
+
+        | `TodayDate` | string | Yes | Date for which an appointment is
+        required. Format: `D-MMM-YYYY` (e.g., `7-Mar-2026`). |
+
+        | `TodayTime` | string | Yes | Appointment Time. Format 24 Hrs: `H:mm`
+        (e.g., `17:30)`. |
+
+
+        ## Date/time format & timezone assumptions
+
+
+        - Dates appear to be **day-month(short name)-year**: `D-MMM-YYYY`
+        (example: `7-Mar-2026`).
+            
+        - Time appears to be **24-hour** `H:mm` (example: `8:30`).
+            
+        - The API does **not** include an explicit timezone parameter; it’s
+        assumed the server interprets `TodayDate` + `TodayTime` in the
+        **service’s/server’s local timezone** (or the timezone configured for
+        the service). If your client is in a different timezone, convert
+        accordingly before calling.
+            
+
+        ## Response
+
+
+        ### `200 OK`
+
+
+        Returns a **numeric slot identifier** as the response body (plain text),
+        for example:
+
+
+        - `29335`
+            
+
+        > If no slots are available the value `0` is returned 
+          
+
+        ## Example call
+
+
+        ``` http
+
+        GET
+        https://d300b.twidget.io/getnextslot?APServiceId=1&CurrentDate=7-Mar-2026&TodayDate=7-Mar-2026&TodayTime=8:30
+
+         ```
+
+        Example success response:
+
+
+        ``` text
+
+        29335
+
+         ```
+
+        Example : No Slots Available response:
+
+
+        ``` text
+
+        0
+
+         ```
+
+        You can determine the logic based on the returned value. Stop processing
+        if there are no further slots available (0).
       operationId: getnextslot
       parameters:
         - name: APServiceId
