@@ -86,7 +86,7 @@ paths:
           in: query
           schema:
             type: string
-            example: drdeepakhbk@gmail.com
+            example: ddrdeepakhbk@gmail.com
       responses:
         '200':
           description: checkusertype
@@ -1094,7 +1094,7 @@ paths:
           in: query
           schema:
             type: string
-            example: '7871'
+            example: '7810'
       responses:
         '200':
           description: getproviderdetailsbyappointment
@@ -1390,7 +1390,7 @@ paths:
           in: query
           schema:
             type: string
-            example: 9-Feb-2026
+            example: 16-Feb-2026
       responses:
         '200':
           description: getappointmentbyshop / 200 - No appointments found
@@ -1607,8 +1607,8 @@ paths:
         embedded in `FromTime`.
 
 
-        Example: Assuming today is 14-Mar-26 (CurrentDate). On this date, want
-        to book a future appointment for 16-Mar-26 (TodayDate) at 14:30
+        Example: Assuming today is 14-Mar-26 (TodayDate). On this date, want to
+        book a future appointment for 16-Mar-26 (CurrentDate) at 14:30
         (TodayTime).
 
 
@@ -1628,14 +1628,14 @@ paths:
 
         | `APServiceId` | integer | Yes | `1` | Shop Identifier |
 
-        | `CurrentDate` | string (date) | Yes | `14-Mar-2026` | The date on
-        which the schedule is being fetched |
-
-        | `TodayDate` | string (date) | Yes | `16-Mar-2026` | Date <u>for </u>
+        | `CurrentDate` | string (date) | Yes | `14-Mar-2026` | Date <u>for </u>
         which the booking should be done. |
 
+        | `TodayDate` | string (date) | Yes | `16-Mar-2026` | The date on which
+        the schedule is being fetched. |
+
         | `TodayTime` | string (time) | Yes | `14:30` | Time <u>for </u> which
-        the booking should be done |
+        the booking should be done. |
 
 
         ---
@@ -1741,17 +1741,17 @@ paths:
           in: query
           schema:
             type: string
-            example: 9-Feb-2026
+            example: 14-Mar-2026
         - name: TodayDate
           in: query
           schema:
             type: string
-            example: 9-Feb-2026
+            example: 14-Mar-2026
         - name: TodayTime
           in: query
           schema:
             type: string
-            example: '14:30'
+            example: '23:55'
       responses:
         '200':
           description: getschedule
@@ -3424,11 +3424,11 @@ paths:
         | `APServiceId` | integer | Yes | Appointment/Service identifier to find
         availability for. Example: `1`. |
 
-        | `CurrentDate` | string | Yes | This is the DateTime.Now as-is Format:
-        `D-MMM-YYYY` (e.g., `7-Mar-2026`). |
-
-        | `TodayDate` | string | Yes | Date for which an appointment is
+        | `CurrentDate` | string | Yes | Date for which an appointment is
         required. Format: `D-MMM-YYYY` (e.g., `7-Mar-2026`). |
+
+        | `TodayDate` | string | Yes | This is the DateTime.Now as-is Format:
+        `D-MMM-YYYY` (e.g., `7-Mar-2026`). |
 
         | `TodayTime` | string | Yes | Appointment Time. Format 24 Hrs: `H:mm`
         (e.g., `17:30)`. |
@@ -3516,7 +3516,7 @@ paths:
           in: query
           schema:
             type: string
-            example: '8:30'
+            example: '21:30'
       responses:
         '200':
           description: getnextslot
@@ -4101,6 +4101,186 @@ paths:
                     LateID: 1086
                     LateTime: '11:27'
                     Message: Last saved entry being displayed
+  /checkissubscriptionactive:
+    get:
+      summary: checkissubscriptionactive
+      description: >-
+        ## Check Is Subscription Active
+
+
+        Checks whether a provider's subscription is active for a given booking
+        date. Returns subscription status details including a descriptive
+        message and a flag indicating whether the subscription is currently
+        active.
+
+
+        **NOTE**: Always check the flag value `0` or 1 in the attribute
+        `SubScriptionActiveFlag. 0` indicates subscription is not valid. In this
+        case do not allow the appointments to be booked. `1` means that the
+        subscription is valid and good to proceed with booking.
+
+
+        ---
+
+
+        ## Query Parameters
+
+
+        | Parameter | Type | Required | Description |
+
+        | --- | --- | --- | --- |
+
+        | `AdminUserMasterId` | integer | Yes | The unique identifier of the
+        admin user (provider) whose subscription status is being checked. |
+
+        | `BookingDate` | string | Yes | The date for which the subscription
+        status should be verified. Format: `DD-Mon-YYYY` (e.g., `28-Mar-2026`).
+        |
+
+
+        ---
+
+
+        ## Response Fields
+
+
+        | Field | Type | Description |
+
+        | --- | --- | --- |
+
+        | `AdminUserMasterID` | integer | The ID of the admin user master record
+        associated with the subscription check. Returns `0` if the provider is
+        not found or subscription is inactive. |
+
+        | `BookingDate` | string / null | The booking date used for the
+        subscription check. Returns `null` if the date is not applicable or the
+        subscription is inactive. |
+
+        | `SubScriptionActiveDescription` | string | A human-readable message
+        describing the subscription status. For example: `"The Provider Does Not
+        Accept Appointment"` when the subscription is inactive. |
+
+        | `SubScriptionActiveFlag` | integer | A flag indicating the
+        subscription status. `1` means the subscription is active; `0` means it
+        is inactive or the provider does not accept appointments. |
+
+
+        ---
+
+
+        ## Example Request
+
+
+        ```
+
+        GET
+        https://d300b.twidget.io/checkissubscriptionactive?AdminUserMasterId=1&BookingDate=28-Mar-2026
+
+         ```
+
+        ## Example Response: When Subscription Is Not Active
+        ("SubScriptionActiveFlag": 0)
+
+
+        ``` json
+
+        {
+          "AdminUserMasterID": 0,
+          "BookingDate": null,
+          "SubScriptionActiveDescription": "The Provider Does Not Accept Appointment",
+          "SubScriptionActiveFlag": 0
+        }
+
+         ```
+
+        ## Example Response: When Subscription Is Active
+        ("SubScriptionActiveFlag": 1)
+
+
+        ``` json
+
+        {
+            "AdminUserMasterID": 0,
+            "BookingDate": null,
+            "SubScriptionActiveDescription": "The Subscription is valid",
+            "SubScriptionActiveFlag": 1
+        }
+
+         ```
+      operationId: checkissubscriptionactive
+      parameters:
+        - name: AdminUserMasterId
+          in: query
+          schema:
+            type: string
+            example: '1'
+        - name: BookingDate
+          in: query
+          schema:
+            type: string
+            example: 28-Mar-2026
+      responses:
+        '200':
+          description: >-
+            checkissubscriptionactive / checkissubscriptionactive /
+            checkissubscriptionactive / checkissubscriptionactive
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '157'
+            Date:
+              schema:
+                type: string
+                example: Sat, 28 Mar 2026 11:49:04 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"9d-Or6/wEIizOmsXX0MnPA6nD2QPQE"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AdminUserMasterID:
+                    type: number
+                    example: 0
+                  BookingDate:
+                    nullable: true
+                    example: null
+                  SubScriptionActiveDescription:
+                    type: string
+                    example: The Provider Does Not Accept Appointment at this time
+                  SubScriptionActiveFlag:
+                    type: number
+                    example: 0
+              examples:
+                checkissubscriptionactive:
+                  value:
+                    AdminUserMasterID: 0
+                    BookingDate: null
+                    SubScriptionActiveDescription: The Provider Does Not Accept Appointment at this time
+                    SubScriptionActiveFlag: 0
 components:
   securitySchemes: {}
 tags: []
