@@ -4403,6 +4403,137 @@ paths:
               examples:
                 updatetuserdevice:
                   value: '1'
+  /getuserbyemailid:
+    get:
+      summary: getuserbyemailid
+      description: >-
+        ## Get User by Email ID
+
+
+        Retrieves user details from the system based on the provided email
+        address. This is a simple lookup endpoint that returns information
+        associated with the given email.
+
+
+        Note: Use this endpoint after you have successfully logged in. In this
+        API, pass the email address and it will reuturn a JSON object. Important
+        attribute to note is "AdminUserMasterID". It will contain a valid value
+        if the user is found else will show "0".
+
+
+        ---
+
+
+        ### Query Parameters
+
+
+        | Parameter | Type | Required | Description |
+
+        | --- | --- | --- | --- |
+
+        | `Email` | string | Yes | The email address of the user to look up.
+        Must be a valid email format. |
+
+
+        ---
+
+
+        ### Example Usage
+
+
+        **Request:**
+
+
+        ```
+
+        GET
+        https://d300b.twidget.io/getuserbyemailid?Email=mantechinnovations@gmail.com
+
+         ```
+
+        **Other example values for** **`Email`****:**
+
+
+        - `mantechinnovations@gmail.com`
+            
+        - `VarshaKale@gmail.com`
+            
+
+        ---
+
+
+        ### Notes
+
+
+        - No request body is required for this endpoint.
+            
+        - No authentication headers are needed.
+            
+        - Ensure the `Email` query parameter is URL-encoded if it contains
+        special characters.
+      operationId: getuserbyemailid
+      parameters:
+        - name: Email
+          in: query
+          schema:
+            type: string
+            example: mantechinnovations@gmail.com
+      responses:
+        '200':
+          description: getuserbyemailid
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '70'
+            Date:
+              schema:
+                type: string
+                example: Sat, 04 Apr 2026 08:27:07 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"46-V0Nmn6j4YQ1cBEo5vWqQpd4rZvw"
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=15724800; includeSubDomains
+            Vary:
+              schema:
+                type: string
+                example: Origin
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AdminUserMasterID:
+                    type: number
+                    example: 1078
+                  Mobile:
+                    type: string
+                    example: '8380021488'
+                  UserType:
+                    type: string
+                    example: Provider
+              examples:
+                getuserbyemailid:
+                  value:
+                    AdminUserMasterID: 1078
+                    Mobile: '8380021488'
+                    UserType: Provider
 components:
   securitySchemes: {}
 tags: []
