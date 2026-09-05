@@ -1628,10 +1628,10 @@ paths:
 
         | `APServiceId` | integer | Yes | `1` | Shop Identifier |
 
-        | `CurrentDate` | string (date) | Yes | `14-Mar-2026` | Date <u>for </u>
+        | `CurrentDate` | string (date) | Yes | `16-Mar-2026` | Date <u>for </u>
         which the booking should be done. |
 
-        | `TodayDate` | string (date) | Yes | `16-Mar-2026` | The date on which
+        | `TodayDate` | string (date) | Yes | `14-Mar-2026` | The date on which
         the schedule is being fetched. |
 
         | `TodayTime` | string (time) | Yes | `14:30` | Time <u>for </u> which
