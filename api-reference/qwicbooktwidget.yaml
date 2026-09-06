@@ -2648,7 +2648,7 @@ paths:
 
         | --- | --- | --- | --- | --- |
 
-        | `AdminUserMasterID` | string/number | Yes | Always pass `6`. This
+        | `AdminUserMasterID` | string/number | Yes | Always pass `6` in Development and '48' In production. This
         identifies that the booking is being done by receptionist. | `"6"` |
 
         | `APServiceTransID` | string/number | Yes | Slot reference ID. |
